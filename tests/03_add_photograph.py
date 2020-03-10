@@ -6,31 +6,36 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from fixtures.params import DOMAIN, CHROME_EXECUTABLE_PATH
+from pages.add_photograph_page import AddPhotographPage
+from pages.login_page import LoginPage
+from pages.personal_details_page import PersonalDetailsPage
+
 
 class AddPhotoTestCase(unittest.TestCase):
 
-    def setUp(self) -> None:
-        self.driver = webdriver.Chrome(executable_path='/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver')
-        self.driver.get("http://hrm-online.portnov.com/")
-        self.wait = WebDriverWait(self.driver, 10)
+    def setUp(self):
+        self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
+        self.driver.get(DOMAIN)
+        self.wait = WebDriverWait(self.driver, 2)
+        self.login_page = LoginPage(self.driver)
+        self.personal_details_page = PersonalDetailsPage(self.driver)
+        self.add_photograph_page = AddPhotographPage(self.driver)
 
-    def tearDown(self) -> None:
+
+    def tearDown(self):
         self.driver.quit()
 
     def test_04_add_valid_photo(self):
 
         driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
-
-        sleep(1)
-
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_id('empPic').click()
-
-        driver.find_element_by_id('empPic').click()
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.add_photograph_page.emloyee_picture()
+########################################################################################################################
         driver.find_element_by_name('photofile').send_keys('/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_500kbmb.jpg')
+
         driver.find_element_by_id('btnSave').click()
 
         self.wait.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".message.success")))
@@ -48,7 +53,7 @@ class AddPhotoTestCase(unittest.TestCase):
         driver.find_element_by_id('menu_pim_viewMyDetails').click()
         driver.find_element_by_id('empPic').click()
 
-        driver.find_element_by_id('empPic').click()
+
         driver.find_element_by_name('photofile').send_keys('/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_1mb.jpg')
         driver.find_element_by_id('btnSave').click()
         self.wait.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".message.warning")))

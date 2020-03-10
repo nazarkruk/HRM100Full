@@ -6,11 +6,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from pages.base_page import BasePage
 
 
-class LoginPage(BasePage):
+class LoginPage:
 
     def __init__(self, driver):
-        super(LoginPage, self).__init__(driver)
-        self.page_url = "http://hrm-online.portnov.com/symfony/web/index.php/auth/login"
+        self.driver = driver
 
     def set_up_username(self, username):
         driver = self.driver
