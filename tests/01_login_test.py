@@ -14,7 +14,7 @@ class MyLoginCase(BaseTestCase):
         self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
         self.driver.get(DOMAIN)
         self.login_page = LoginPage(self.driver)
-        self.test_01_valid_login() #test
+
     def tearDown(self) -> None:
         self.driver.quit()
 
@@ -23,19 +23,14 @@ class MyLoginCase(BaseTestCase):
         self.login_page.set_up_password('password')
         self.login_page.press_login_button()
 
-
-
-
         welcome_text = self.login_page.get_welcome_massage()
         self.assertEqual('Welcome Admin', welcome_text)
 
     def test_02_invalid_password(self):
         driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password1')
-        driver.find_element_by_id("btnLogin").click()
-
-        sleep(3)
+        self.login_page.set_up_username('admin')
+        self.login_page.set_up_password('password1')
+        self.login_page.press_login_button()
 
         spam_massage = driver.find_element_by_id('spanMessage').text
         self.assertEqual ('Invalid credentials', spam_massage)
