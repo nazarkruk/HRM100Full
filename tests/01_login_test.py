@@ -22,7 +22,7 @@ class MyLoginCase(BaseTestCase):
         self.login_page.set_up_username('admin')
         self.login_page.set_up_password('password')
         self.login_page.press_login_button()
-        self.test_01_valid_login().if not True
+
 
         welcome_text = self.login_page.get_welcome_massage()
         self.assertEqual('Welcome Admin', welcome_text)
