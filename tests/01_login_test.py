@@ -23,7 +23,7 @@ class MyLoginCase(BaseTestCase):
         self.login_page.set_up_password('password')
         self.login_page.press_login_button()
 
-        #This is just a test how to comit it to GitHub
+
 
 
         welcome_text = self.login_page.get_welcome_massage()
