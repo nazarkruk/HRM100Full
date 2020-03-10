@@ -6,8 +6,8 @@ DEFAULT_PASSWORD = "password"
 
 BROWSER_TYPE = "Chrome"
 
-CHROME_EXECUTABLE_PATH = '/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver'
-# CHROME_EXECUTABLE_PATH = '/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver'
+#CHROME_EXECUTABLE_PATH = '/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver'
+CHROME_EXECUTABLE_PATH = 'C:/Users/Admin/PycharmProjects/HRM100Full/browsers_drivers/chromedriver.exe'
 
 
 FIREFOX_EXECUTABLE_PATH = "C:/webdriver/geckodriver.exe"
