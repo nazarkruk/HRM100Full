@@ -8,7 +8,7 @@ from pages.login_page import LoginPage
 from pages.personal_details_page import PersonalDetailsPage
 
 
-class MyLoginCase(BaseTestCase):
+class MyLoginCase(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
@@ -37,32 +37,26 @@ class MyLoginCase(BaseTestCase):
 
     def test_03_invalid_username(self):
         driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password1')
-        driver.find_element_by_id("btnLogin").click()
-
-        sleep(3)
+        self.login_page.set_up_username('admin1')
+        self.login_page.set_up_password('password')
+        self.login_page.press_login_button()
 
         spam_massage = driver.find_element_by_id('spanMessage').text
         self.assertEqual('Invalid credentials', spam_massage)
 
     def test_04_empty_password(self):
         driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id("btnLogin").click()
-
-        sleep(3)
+        self.login_page.set_up_username('admin')
+        self.login_page.press_login_button()
 
         spam_massage = driver.find_element_by_id('spanMessage').text
         self.assertEqual ('Password cannot be empty', spam_massage)
 
-
     def test_05_empty_username(self):
         driver = self.driver
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
 
-        sleep(3)
+        self.login_page.set_up_password('password')
+        self.login_page.press_login_button()
 
         spam_massage = driver.find_element_by_id('spanMessage').text
         self.assertEqual ('Username cannot be empty', spam_massage)
