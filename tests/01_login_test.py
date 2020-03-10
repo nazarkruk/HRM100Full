@@ -14,7 +14,7 @@ class MyLoginCase(BaseTestCase):
         self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
         self.driver.get(DOMAIN)
         self.login_page = LoginPage(self.driver)
-
+#test
     def tearDown(self) -> None:
         self.driver.quit()
 
