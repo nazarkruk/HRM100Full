@@ -31,9 +31,8 @@ class ContactDetailsTestCase(unittest.TestCase):
         self.login_page.login()
         self.login_page.get_welcome_massage()
         self.personal_details_page.goto_page()
-        sleep(1)
         self.contact_details_page.goto_page()
-        sleep(1)
+
 
         page_title = self.driver.find_element_by_xpath('//*[@id="contact-details"]/div[2]/div[1]/h1').text
         self.assertEqual('Contact Details', page_title)
