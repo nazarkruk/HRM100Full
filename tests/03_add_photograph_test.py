@@ -22,7 +22,6 @@ class AddPhotoTestCase(unittest.TestCase):
         self.personal_details_page = PersonalDetailsPage(self.driver)
         self.add_photograph_page = AddPhotographPage(self.driver)
 
-
     def tearDown(self):
         self.driver.quit()
 

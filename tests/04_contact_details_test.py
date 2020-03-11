@@ -7,153 +7,108 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
+from fixtures.params import DOMAIN, CHROME_EXECUTABLE_PATH
+from pages.add_photograph_page import AddPhotographPage
+from pages.contact_details_page import ContactDetailsPage
+from pages.login_page import LoginPage
+from pages.personal_details_page import PersonalDetailsPage
+
 
 class ContactDetailsTestCase(unittest.TestCase):
 
-    def setUp(self) -> None:
-        self.driver = webdriver.Chrome(executable_path='/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver')
-        self.driver.get("http://hrm-online.portnov.com/")
-        self.wait = WebDriverWait(self.driver, 10)
+    def setUp(self):
+        self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
+        self.driver.get(DOMAIN)
+        self.wait = WebDriverWait(self.driver, 2)
+        self.login_page = LoginPage(self.driver)
+        self.personal_details_page = PersonalDetailsPage(self.driver)
+        self.add_photograph_page = AddPhotographPage(self.driver)
+        self.contact_details_page = ContactDetailsPage(self.driver)
 
-    def tearDown(self) -> None:
+    def tearDown(self):
         self.driver.quit()
+
 
     def test_08_contact_details(self):
 
-        driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
-
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        sleep(1)
+        self.contact_details_page.goto_page()
         sleep(1)
 
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Contact Details').click()
-
-        sleep(1)
-
-        page_title = driver.find_element_by_xpath('//*[@id="contact-details"]/div[2]/div[1]/h1').text
+        page_title = self.driver.find_element_by_xpath('//*[@id="contact-details"]/div[2]/div[1]/h1').text
         self.assertEqual('Contact Details', page_title)
 
     def test_09_is_contact_details_editable(self):
         driver = self.driver
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.contact_details_page.goto_page()
+        self.contact_details_page.edit_button()
 
-        sleep(1)
-
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Contact Details').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnSave').click()
-
-        status = driver.find_element_by_id('contact_street1').is_enabled()
-
-        print('Text Fields in Contact Details can be editable: ',status)
-
-        self.assertTrue(status)
+        self.assertTrue(driver.find_element_by_id('contact_street1').is_enabled())
 
     def test_10_contact_details_edit(self):
         driver = self.driver
-        adress_1 = 'adress1_1234!@#$'
-        adress_2  = 'adress2_f1234!@#$'
+        address_1 = 'adress1_1234!@#$'
+        address_2 = 'adress2_f1234!@#$'
         city = 'city_asdf1234!@#$'
         state_province = 'state_asdf1234!@#$'
         zip_code = 'zip1234!@#$'
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
+        country_index = '5'
 
-        sleep(1)
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.contact_details_page.goto_page()
+        self.contact_details_page.edit_button()
+        self.contact_details_page.set_address_1(address_1)
+        self.contact_details_page.set_address_2(address_2)
+        self.contact_details_page.set_city(city)
+        self.contact_details_page.set_state_province(state_province)
+        self.contact_details_page.set_zip_code(zip_code)
+        self.contact_details_page.select_conuntry_by_index(country_index)
+        self.contact_details_page.save_button()
 
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Contact Details').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnSave').click()
-
-        driver.find_element_by_id('contact_street1').clear()
-        driver.find_element_by_id('contact_street1').send_keys(adress_1)
-        driver.find_element_by_id('contact_street2').clear()
-        driver.find_element_by_id('contact_street2').send_keys(adress_2)
-        driver.find_element_by_id('contact_city').clear()
-        driver.find_element_by_id('contact_city').send_keys(city)
-        driver.find_element_by_id('contact_province').clear()
-        driver.find_element_by_id('contact_province').send_keys(state_province)
-        driver.find_element_by_id('contact_emp_zipcode').clear()
-        driver.find_element_by_id('contact_emp_zipcode').send_keys(zip_code)
-        Select(driver.find_element_by_id('contact_country')).select_by_index(5)
-
-        driver.find_element_by_id('btnSave').click()
-        self.wait.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".message.success")))
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),'Successfully Saved'))
 
-        input_city = driver.find_element_by_id('contact_city')
-        value_city = input_city.get_attribute('value')
+        self.assertEqual(city, driver.find_element_by_id('contact_city').get_attribute('value'))
 
-        self.assertEqual(city, value_city)
-
-    def test_11_contact_zip_10(self):
+    def test_11_contact_valid_zip_10(self):
         driver = self.driver
         zip_code = '1234567890'
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
 
-        sleep(1)
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.contact_details_page.goto_page()
+        self.contact_details_page.edit_button()
+        self.contact_details_page.set_zip_code(zip_code)
+        self.contact_details_page.save_button()
 
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Contact Details').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnSave').click()
-
-        driver.find_element_by_id('contact_emp_zipcode').clear()
-        driver.find_element_by_id('contact_emp_zipcode').send_keys(zip_code)
-
-        driver.find_element_by_id('btnSave').click()
-        #self.wait.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".message.success")))
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),'Successfully Saved'))
 
-        input_zip = driver.find_element_by_id('contact_emp_zipcode')
-        value_zip_code = input_zip.get_attribute('value')
-
-        self.assertEqual(zip_code, value_zip_code)
+        self.assertEqual(zip_code, driver.find_element_by_id('contact_emp_zipcode').get_attribute('value'))
 
 
-    def test_11_contact_zip_more_10(self):
+    def test_11_1_contact_zip_more_10(self):
         driver = self.driver
         zip_code = '123456789123456789'
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
 
-        sleep(1)
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.contact_details_page.goto_page()
+        self.contact_details_page.edit_button()
+        self.contact_details_page.set_zip_code(zip_code)
+        self.contact_details_page.save_button()
 
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Contact Details').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnSave').click()
-
-        driver.find_element_by_id('contact_emp_zipcode').clear()
-        driver.find_element_by_id('contact_emp_zipcode').send_keys(zip_code)
-
-        driver.find_element_by_id('btnSave').click()
-
-        #self.wait.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".message.success")))
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),'Successfully Saved'))
 
-        input_zip = driver.find_element_by_id('contact_emp_zipcode')
-        value_zip_code = input_zip.get_attribute('value')
-        number_characters = len(value_zip_code)
-
+        number_characters = len(driver.find_element_by_id('contact_emp_zipcode').get_attribute('value'))
         self.assertTrue(number_characters <= 10)
 
     def test_12_contact_valid_phone(self):
