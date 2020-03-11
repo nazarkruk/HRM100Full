@@ -35,3 +35,23 @@ class ContactDetailsPage:
 
     def select_conuntry_by_index(self, country_index):
         Select(self.driver.find_element_by_id('contact_country')).select_by_index(country_index)
+
+    def set_home_phone(self, phone_number):
+        self.driver.find_element_by_id('contact_emp_hm_telephone').clear()
+        self.driver.find_element_by_id('contact_emp_hm_telephone').send_keys(phone_number)
+
+    def set_mobile_phone(self, phone_number):
+        self.driver.find_element_by_id('contact_emp_mobile').clear()
+        self.driver.find_element_by_id('contact_emp_mobile').send_keys(phone_number)
+
+    def set_work_phone(self, phone_number):
+        self.driver.find_element_by_id('contact_emp_work_telephone').clear()
+        self.driver.find_element_by_id('contact_emp_work_telephone').send_keys(phone_number)
+
+    def set_work_email(self, work_email):
+        self.driver.find_element_by_id('contact_emp_work_email').clear()
+        self.driver.find_element_by_id('contact_emp_work_email').send_keys(work_email)
+
+    def set_other_email(self, other_email):
+        self.driver.find_element_by_id('contact_emp_oth_email').clear()
+        self.driver.find_element_by_id('contact_emp_oth_email').send_keys(other_email)
