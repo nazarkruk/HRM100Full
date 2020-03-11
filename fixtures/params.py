@@ -6,13 +6,21 @@ DEFAULT_PASSWORD = "password"
 
 BROWSER_TYPE = "Chrome"
 
-#CHROME_EXECUTABLE_PATH = '/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver'
-CHROME_EXECUTABLE_PATH = 'C:/Users/Admin/PycharmProjects/HRM100Full/browsers_drivers/chromedriver.exe'
+CHROME_EXECUTABLE_PATH = '/Users/nazarkruk/PycharmProjects/HRM100Full/browsers_drivers/chromedriver'
+#CHROME_EXECUTABLE_PATH = 'C:/Users/Admin/PycharmProjects/HRM100Full/browsers_drivers/chromedriver.exe'
 
 
 FIREFOX_EXECUTABLE_PATH = "C:/webdriver/geckodriver.exe"
 
 EXPLICIT_TIMEOUT = 2
+
+
+# # # Data files for testing # # #
+
+JPG_500_kb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_500kbmb.jpg'
+JPG_1_Mb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_1mb.jpg'
+JPG_2_Mb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_2mb.jpg'
+Py_file_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/test.py'
 
 
 
