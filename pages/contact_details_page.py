@@ -1,11 +1,15 @@
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 class ContactDetailsPage:
 
     def __init__(self, driver):
         self.driver = driver
 
     def goto_page(self):
-        self.driver.find_element_by_link_text('Contact Details').click()
+        WebDriverWait(self.driver, 2).until(expected_conditions.presence_of_element_located((By.LINK_TEXT, 'Contact Details'))).click()
 
     def edit_button(self):
         self.driver.find_element_by_id('btnSave').click()

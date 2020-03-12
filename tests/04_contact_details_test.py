@@ -1,5 +1,4 @@
 import unittest
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -96,6 +95,7 @@ class ContactDetailsTestCase(unittest.TestCase):
         self.login_page.login()
         self.login_page.get_welcome_massage()
         self.personal_details_page.goto_page()
+
         self.contact_details_page.goto_page()
         self.contact_details_page.edit_button()
         self.contact_details_page.set_zip_code(zip_code)
