@@ -203,7 +203,7 @@ class ContactDetailsTestCase(unittest.TestCase):
         self.login_page.get_welcome_massage()
         self.personal_details_page.goto_page()
         self.emergency_contacts_page.goto_page()
-##################################################################################################################################
+######################################################################
 
         driver.find_element_by_id('btnAddAttachment').click()
 
