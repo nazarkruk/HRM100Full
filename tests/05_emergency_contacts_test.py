@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from fixtures.params import CHROME_EXECUTABLE_PATH, DOMAIN
+from fixtures.params import CHROME_EXECUTABLE_PATH, DOMAIN, JPG_500_kb_path, Pdf_file_path, JPG_2_Mb_path
 from pages.add_photograph_page import AddPhotographPage
 from pages.contact_details_page import ContactDetailsPage
 from pages.emergency_contacts_page import EmergencyContactsPage
@@ -197,82 +197,53 @@ class ContactDetailsTestCase(unittest.TestCase):
                                                                           'Successfully Deleted'))
 
     def test_23_add_attachment_emg_contacts(self):
-        driver = self.driver
+        file_path = Pdf_file_path
 
         self.login_page.login()
         self.login_page.get_welcome_massage()
         self.personal_details_page.goto_page()
         self.emergency_contacts_page.goto_page()
-######################################################################
-
-        driver.find_element_by_id('btnAddAttachment').click()
-
-        driver.find_element_by_id('ufile').send_keys('/Users/nazarkruk/Desktop/Orange_HRM/Orange-HRM-Test_Plan.pdf')
-
-        driver.find_element_by_id('btnSaveAttachment').click()
+        self.emergency_contacts_page.add_attachment_button()
+        self.emergency_contacts_page.choose_file(file_path)
+        self.emergency_contacts_page.upload_button()
 
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),'Successfully Saved'))
-
+        # cleanup_deleting attachment
         self.driver.find_element_by_css_selector("#tblAttachments > tbody > tr.odd > td.center > input").click()
-
         self.driver.find_element_by_id("btnDeleteAttachment").click()
-
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),
                                                                           'Successfully Deleted'))
 
     def test_24_delete_attachment_emg_contacts(self):
-        driver = self.driver
+        file_path = Pdf_file_path
 
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
-
-        sleep(1)
-
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Emergency Contacts').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnAddAttachment').click()
-
-        driver.find_element_by_id('ufile').send_keys('/Users/nazarkruk/Desktop/Orange_HRM/Orange-HRM-Test_Plan.pdf')
-
-        driver.find_element_by_id('btnSaveAttachment').click()
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.emergency_contacts_page.goto_page()
+        self.emergency_contacts_page.add_attachment_button()
+        self.emergency_contacts_page.choose_file(file_path)
+        self.emergency_contacts_page.upload_button()
 
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),'Successfully Saved'))
 
         self.driver.find_element_by_css_selector("#tblAttachments > tbody > tr.odd > td.center > input").click()
-
         self.driver.find_element_by_id("btnDeleteAttachment").click()
         self.wait.until(expected_conditions.text_to_be_present_in_element((By.CSS_SELECTOR, ".message.success"),
                                                                           'Successfully Deleted'))
 
     def test_25_add_attachment_large_size(self):
-        driver = self.driver
+        file_path = JPG_2_Mb_path
 
-        driver.find_element_by_id('txtUsername').send_keys('admin')
-        driver.find_element_by_id('txtPassword').send_keys('password')
-        driver.find_element_by_id("btnLogin").click()
+        self.login_page.login()
+        self.login_page.get_welcome_massage()
+        self.personal_details_page.goto_page()
+        self.emergency_contacts_page.goto_page()
+        self.emergency_contacts_page.add_attachment_button()
+        self.emergency_contacts_page.choose_file(file_path)
+        self.emergency_contacts_page.upload_button()
 
-        sleep(1)
-
-        driver.find_element_by_id('menu_pim_viewMyDetails').click()
-        driver.find_element_by_link_text('Emergency Contacts').click()
-
-        sleep(1)
-
-        driver.find_element_by_id('btnAddAttachment').click()
-
-        driver.find_element_by_id('ufile').send_keys('/Users/nazarkruk/Desktop/Orange_HRM/jpg_2mb.jpg')
-
-        driver.find_element_by_id('btnSaveAttachment').click()
-
-        sleep(1)
-
-        crash_message = driver.find_element_by_xpath('/html/body/center[1]/h1').text
-
-        self.assertEqual('413 Request Entity Too Large', crash_message)
+        self.assertEqual('413 Request Entity Too Large', self.driver.find_element_by_xpath('/html/body/center[1]/h1').text)
 
 
 if __name__ == '__main__':

@@ -21,6 +21,7 @@ JPG_500_kb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_500kbmb.
 JPG_1_Mb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_1mb.jpg'
 JPG_2_Mb_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/jpg_2mb.jpg'
 Py_file_path = '/Users/nazarkruk/Desktop/Orange_HRM/simple_image/test.py'
+Pdf_file_path = '/Users/nazarkruk/Desktop/Orange_HRM/Orange-HRM-Test_Plan.pdf'
 
 
 

@@ -38,3 +38,12 @@ class EmergencyContactsPage:
 
     def save_button(self):
         self.driver.find_element_by_id('btnSaveEContact').click()
+
+    def add_attachment_button(self):
+        self.driver.find_element_by_id('btnAddAttachment').click()
+
+    def choose_file(self, file_path):
+        self.driver.find_element_by_id('ufile').send_keys(file_path)
+
+    def upload_button(self):
+        self.driver.find_element_by_id('btnSaveAttachment').click()
