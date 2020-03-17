@@ -6,6 +6,7 @@
 
 import unittest
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.select import Select
 from time import sleep
 from selenium.webdriver.common.by import By
@@ -53,6 +54,13 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, False)       # # # WILL COMPARE FIRST AND SECOND ITEM AND TEST WILL PASS IF THEY EQUAL
         self.assertTrue(5 in 456)           # # # WILL CHECK IS EXPRESSION  - TRUE
 
+    # # #   MOUSE HOVER
+        actions = ActionChains(driver)
+        admin = driver.find_element_by_xpath('//*[@id="menu_admin_viewAdminModule"]/b')
+        userManagment = driver.find_element_by_id('menu_admin_UserManagement')
+        users = driver.find_element_by_id('menu_admin_viewSystemUsers')
+
+        actions.move_to_element(admin).move_to_element(userManagment).move_to_element(users).click().perform()
 
 # # # THAT'S THE JUNIT FRAMWORK PART # # #
 if __name__ == '__main__':
