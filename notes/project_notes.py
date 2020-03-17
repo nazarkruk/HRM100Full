@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
     def tearDown(self) -> None:
         self.driver.quit()          # # #W ILL QUIT CURRENT BROWSER SESSION
 
-    # # # THE PLACE WHERE OUR TEST STARTING # # #
+    # # # THE PLACE WHERE DEFINED TEST METHOD # # #
     def test_something(self):
         driver = self.driver
 
@@ -57,10 +57,11 @@ class MyTestCase(unittest.TestCase):
     # # #   MOUSE HOVER
         actions = ActionChains(driver)
         admin = driver.find_element_by_xpath('//*[@id="menu_admin_viewAdminModule"]/b')
-        userManagment = driver.find_element_by_id('menu_admin_UserManagement')
+        user_managment = driver.find_element_by_id('menu_admin_UserManagement')
         users = driver.find_element_by_id('menu_admin_viewSystemUsers')
 
-        actions.move_to_element(admin).move_to_element(userManagment).move_to_element(users).click().perform()
+        actions.move_to_element(admin).move_to_element(user_managment).move_to_element(users).click().perform()
+
 
 # # # THAT'S THE JUNIT FRAMWORK PART # # #
 if __name__ == '__main__':
