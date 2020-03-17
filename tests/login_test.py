@@ -13,6 +13,7 @@ class LoginTestCase(unittest.TestCase):
         self.driver.get(DOMAIN)
         self.login_page = LoginPage(self.driver)
 
+
     def tearDown(self):
         self.driver.quit()
 
@@ -61,4 +62,4 @@ class LoginTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output="/Users/nazarkruk/PycharmProjects/HRM100Full/Reports"))

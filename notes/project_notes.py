@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
     def tearDown(self) -> None:
         self.driver.quit()          # # #W ILL QUIT CURRENT BROWSER SESSION
 
-    # # # THE PLACE WHERE DEFINED TEST METHOD # # #
+    # # # THE PLACE WHERE DEFINED TEST METHOD # # # AND ALWAYS STARTS FORM test_# # #
     def test_something(self):
         driver = self.driver
 
