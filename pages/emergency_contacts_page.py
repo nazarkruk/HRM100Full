@@ -11,7 +11,8 @@ class EmergencyContactsPage:
         self.driver = driver
 
     def goto_page(self):
-        self.driver.find_element_by_link_text('Emergency Contacts').click()
+        #self.driver.find_element_by_link_text('Emergency Contacts').click()
+        WebDriverWait(self.driver, 2).until(expected_conditions.presence_of_element_located((By.LINK_TEXT, 'Emergency Contacts'))).click()
 
     def add_contact_button(self):
         self.driver.find_element_by_id('btnAddContact').click()

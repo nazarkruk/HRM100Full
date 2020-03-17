@@ -13,7 +13,7 @@ from pages.login_page import LoginPage
 from pages.personal_details_page import PersonalDetailsPage
 
 
-class ContactDetailsTestCase(unittest.TestCase):
+class EmergencyContactsTestCase(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome(executable_path=CHROME_EXECUTABLE_PATH)
