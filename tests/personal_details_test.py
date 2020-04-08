@@ -1,4 +1,6 @@
 import unittest
+
+import HtmlTestRunner
 from selenium import webdriver
 from fixtures.params import DOMAIN, CHROME_EXECUTABLE_PATH
 from pages.login_page import LoginPage
@@ -73,4 +75,4 @@ class PersonalDetailsTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(testRunner= HtmlTestRunner.HTMLTestRunner(output ='/Users/nazarkruk/PycharmProjects/HRM100Full/Reports'))
