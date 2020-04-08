@@ -2,7 +2,7 @@ import unittest
 
 from tests.login_test import LoginTestCase
 from tests.personal_details_test import PersonalDetailsTestCase
-from tests.contact_details_test import  ContactDetailsTestCase
+from tests.contact_details_test import ContactDetailsTestCase
 from tests.add_photograph_test import AddPhotoTestCase
 from tests.emergency_contacts_test import EmergencyContactsTestCase
 

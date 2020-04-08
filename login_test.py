@@ -28,4 +28,4 @@ class LoginTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main(testRunner= HtmlTestRunner.HTMLTestRunner(output ='C:/Users/Admin/PycharmProjects/HRM100Full_Git/Reports'))
+    unittest.main(testRunner= HtmlTestRunner.HTMLTestRunner(output ='/Users/nazarkruk/PycharmProjects/HRM100Full/Reports'))
